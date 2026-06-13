@@ -6,11 +6,11 @@ import { Reveal } from './reveal'
 
 const testimonials = [
   {
-    name: 'Sarah Mitchell',
-    company: 'CEO, Brightwave',
+    name: 'noor01140',
+    company: 'AMERICA',
     avatar: '/images/avatar-1.png',
     review:
-      'Soom delivered beyond our expectations. The product is fast, beautiful, and our conversion rate jumped almost overnight. A true professional.',
+      'Highly recommend him. quick response high quality of work and easy to deal with him',
   },
   {
     name: 'David Chen',

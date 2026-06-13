@@ -14,9 +14,7 @@ const nav = [
 ]
 
 const socials = [
-  { href: 'mailto:hello@soomraj.dev', label: 'Email', icon: Mail },
   { href: 'https://fiverr.com', label: 'Fiverr', icon: ArrowUpRight },
-  { href: 'https://linkedin.com', label: 'LinkedIn', icon: LinkedinIcon },
   { href: 'https://github.com', label: 'GitHub', icon: GithubIcon },
 ]
 
@@ -48,9 +46,7 @@ export function SiteFooter() {
             discussing new ideas and ambitious products.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <MagneticButton href="mailto:hello@soomraj.dev">
-              <Mail className="size-4" /> hello@soomraj.dev
-            </MagneticButton>
+            
             <MagneticButton href="/projects" variant="outline">
               View My Work
             </MagneticButton>

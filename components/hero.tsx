@@ -5,6 +5,8 @@ import { ArrowRight, TrendingUp, Activity, Users } from 'lucide-react'
 import { MagneticButton } from './magnetic-button'
 import { useRef } from 'react'
 import { useMotionValue, useSpring, useTransform } from 'motion/react'
+import { FaReact, FaWordpress } from "react-icons/fa"
+import { SiNodedotjs, SiMongodb } from "react-icons/si"
 
 function FloatingDashboard() {
   const x = useMotionValue(0)
@@ -182,20 +184,84 @@ export function Hero() {
             <MagneticButton href="/projects">
               View Projects <ArrowRight className="size-4" />
             </MagneticButton>
-            <MagneticButton href="/#contact" variant="outline">
-              Hire Me
-            </MagneticButton>
+           
           </motion.div>
         </div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto w-full max-w-md lg:mr-0"
         >
           <FloatingDashboard />
-        </motion.div>
+        </motion.div> */}
+           <div className="relative mx-auto w-full max-w-md lg:mr-0">
+
+  {/* Main Image */}
+  <img
+    src="/soom_raj_portrait.webp"
+    alt="Soom Raj"
+    className="w-full rounded-3xl border border-border object-cover shadow-2xl"
+  />
+
+  {/* React Badge */}
+  <motion.div
+    animate={{ y: [0, -8, 0] }}
+    transition={{
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="absolute -top-5 -left-5 flex items-center gap-2 rounded-2xl border border-cyan-500/30 bg-[#06141B] px-4 py-3 shadow-xl backdrop-blur-md"
+  >
+    <FaReact className="text-xl text-cyan-400" />
+    <span className="font-medium text-cyan-300">React.js</span>
+  </motion.div>
+
+  {/* WordPress Badge */}
+  <motion.div
+    animate={{ y: [0, 8, 0] }}
+    transition={{
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="absolute -right-5 top-10 flex items-center gap-2 rounded-2xl border border-blue-500/30 bg-[#071018] px-4 py-3 shadow-xl backdrop-blur-md"
+  >
+    <FaWordpress className="text-xl text-blue-400" />
+    <span className="font-medium text-blue-300">WordPress</span>
+  </motion.div>
+
+  {/* Node.js Badge */}
+  <motion.div
+    animate={{ y: [0, -6, 0] }}
+    transition={{
+      duration: 3.5,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="absolute bottom-8 -left-8 flex items-center gap-2 rounded-2xl border border-green-500/30 bg-[#08140D] px-4 py-3 shadow-xl backdrop-blur-md"
+  >
+    <SiNodedotjs className="text-xl text-green-400" />
+    <span className="font-medium text-green-300">Node.js</span>
+  </motion.div>
+
+  {/* MongoDB Badge */}
+  <motion.div
+    animate={{ y: [0, 10, 0] }}
+    transition={{
+      duration: 4.5,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="absolute -bottom-5 right-8 flex items-center gap-2 rounded-2xl border border-emerald-500/30 bg-[#08140F] px-4 py-3 shadow-xl backdrop-blur-md"
+  >
+    <SiMongodb className="text-xl text-emerald-400" />
+    <span className="font-medium text-emerald-300">MongoDB</span>
+  </motion.div>
+
+</div>
       </div>
     </section>
   )

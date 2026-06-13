@@ -27,9 +27,9 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
 }
 
 const stats = [
-  { value: 6, suffix: '+', label: 'Years of Experience' },
-  { value: 80, suffix: '+', label: 'Projects Delivered' },
-  { value: 25, suffix: '+', label: 'Technologies' },
+  { value: 1, suffix: '+', label: 'Years of Experience' },
+  { value: 30, suffix: '+', label: 'Projects Delivered' },
+  { value: 5, suffix: '+', label: 'Technologies' },
   { value: 99, suffix: '%', label: 'Client Satisfaction' },
 ]
 
@@ -46,7 +46,7 @@ export function About() {
             />
             <div className="overflow-hidden rounded-[2rem] border border-border bg-card">
               <Image
-                src="/images/profile.png"
+                src="/soom_raj_portrait.webp"
                 alt="Portrait of Soom Raj"
                 width={520}
                 height={620}

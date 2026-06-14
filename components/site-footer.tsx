@@ -21,7 +21,7 @@ const socials = [
 export function SiteFooter() {
   return (
     <footer
-      id="contact"
+      id="view-work"
       className="relative overflow-hidden border-t border-border bg-secondary/40"
     >
       <div
@@ -47,7 +47,7 @@ export function SiteFooter() {
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             
-            <MagneticButton href="/projects" variant="outline">
+            <MagneticButton href="https://www.fiverr.com/users/soomraj02/portfolio?roleIds=" variant="outline">
               View My Work
             </MagneticButton>
           </div>

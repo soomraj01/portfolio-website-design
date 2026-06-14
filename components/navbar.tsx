@@ -12,7 +12,7 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
   { href: '/updates', label: 'Updates' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '/#view-work', label: 'View my Work' },
 ]
 
 export function Navbar() {

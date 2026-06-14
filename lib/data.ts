@@ -24,7 +24,7 @@ export const projects: Project[] = [
 
   category: 'WordPress Projects',
 
-  image: '/images/mrsolar-homepage.png',
+  image: '/images/mrsolar-homepage.webp',
 
   tech: [
     'WordPress',
@@ -69,8 +69,8 @@ export const projects: Project[] = [
   ],
 
   gallery: [
-    '/images/mrsolar-homepage.png',
-    '/images/mrsolar-services.png',
+    '/images/mrsolar-homepage.webp',
+    '/images/mrsolar-services.webp',
   ],
 },
  {
@@ -83,7 +83,7 @@ export const projects: Project[] = [
 
   category: 'MERN Projects',
 
-  image: '/images/novaweb-homepage.png',
+  image: '/images/novaweb-homepage.webp',
 
   tech: [
     'React',
@@ -126,8 +126,8 @@ export const projects: Project[] = [
   ],
 
   gallery: [
-    '/images/novaweb-homepage.png',
-    '/images/novaweb-services.png',
+    '/images/novaweb-homepage.webp',
+    '/images/novaweb-services.webp',
   ],
 },
  {
@@ -140,7 +140,7 @@ export const projects: Project[] = [
 
   category: 'SaaS Applications',
 
-  image: '/images/defi100x-homepage.png',
+  image: '/images/defi100x-homepage.webp',
 
   tech: [
     'WordPress',
@@ -186,8 +186,8 @@ export const projects: Project[] = [
   ],
 
   gallery: [
-    '/images/defi100x-homepage.png',
-    '/images/defi100x-community.png',
+    '/images/defi100x-homepage.webp',
+    '/images/defi100x-community.webp',
   ],
 },
   {
@@ -200,7 +200,7 @@ export const projects: Project[] = [
 
   category: 'Business Websites',
 
-  image: '/images/dentia-homepage.png',
+  image: '/images/dentia-homepage.webp',
 
   tech: [
     'React',

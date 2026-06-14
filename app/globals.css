@@ -50,9 +50,11 @@
 }
 
 :root {
-  color-scheme: light;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.16 0 0);
+  color-scheme: dark;
+  /* --background: oklch(1 0 0); */
+  background: #0A110E;
+  /* --foreground: oklch(0.16 0 0); */
+  --foreground: oklch(0.985 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.16 0 0);
   --popover: oklch(1 0 0);

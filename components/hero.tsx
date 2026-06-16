@@ -196,7 +196,7 @@ export function Hero() {
         >
           <FloatingDashboard />
         </motion.div> */}
-           <div className="relative mx-auto w-full max-w-md lg:mr-0">
+           <div className="relative mx-auto w-full max-w-md lg:mr-0 ">
 
   {/* Main Image */}
   <img

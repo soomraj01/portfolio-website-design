@@ -1,14 +1,12 @@
+import { useEffect } from 'react'
 import { Reveal } from '@/components/reveal'
 import { UpdatesExplorer } from '@/components/updates-explorer'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Updates — Soom Raj',
-  description:
-    'Development insights, project updates, and technical articles on React, Next.js, the MERN stack, UI/UX, and freelancing.',
-}
 
 export default function UpdatesPage() {
+  useEffect(() => {
+    document.title = 'Updates — Soom Raj'
+  }, [])
+
   return (
     <main className="pt-36 md:pt-44">
       <section className="px-6 pb-12">

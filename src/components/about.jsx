@@ -1,27 +1,34 @@
-'use client'
-
-import Image from 'next/image'
-import { motion, useInView, useMotionValue, useTransform, animate } from 'motion/react'
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Reveal } from './reveal'
 
-function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true })
-  const count = useMotionValue(0)
-  const rounded = useTransform(count, (v) => Math.round(v))
+gsap.registerPlugin(ScrollTrigger)
 
-  useEffect(() => {
-    if (!inView) return
-    const controls = animate(count, to, { duration: 1.6, ease: [0.22, 1, 0.36, 1] })
-    return controls.stop
-  }, [inView, to, count])
+function Counter({ to, suffix = '' }) {
+  const ref = useRef(null)
 
-  useEffect(() => {
-    return rounded.on('change', (v) => {
-      if (ref.current) ref.current.textContent = `${v}${suffix}`
-    })
-  }, [rounded, suffix])
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ctx = gsap.context(() => {
+      const obj = { value: 0 }
+      gsap.to(obj, {
+        value: to,
+        duration: 1.6,
+        ease: 'power3.out',
+        onUpdate: () => {
+          el.textContent = `${Math.round(obj.value)}${suffix}`
+        },
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom-=40',
+          toggleActions: 'play none none none',
+        },
+      })
+    }, el)
+    return () => ctx.revert()
+  }, [to, suffix])
 
   return <span ref={ref}>0{suffix}</span>
 }
@@ -42,16 +49,16 @@ export function About() {
             <div
               aria-hidden
               className="absolute -inset-4 -z-10 rounded-[2rem] opacity-50 blur-2xl"
-              style={{ background: 'radial-gradient(circle, oklch(0.7 0.16 162 / 0.3), transparent 70%)' }}
+              style={{
+                background:
+                  'radial-gradient(circle, oklch(0.7 0.16 162 / 0.3), transparent 70%)',
+              }}
             />
             <div className="overflow-hidden rounded-[2rem] border border-border bg-card">
-              <Image
+              <img
                 src="/soom_raj_portrait.webp"
                 alt="Portrait of Soom Raj"
-                width={520}
-                height={620}
                 className="h-full w-full object-cover"
-                priority
               />
             </div>
           </div>

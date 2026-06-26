@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { LuArrowRight } from 'react-icons/lu'
 import { projects } from '@/lib/data'
 import { ProjectCard } from './project-card'
 import { Reveal } from './reveal'
@@ -19,11 +19,11 @@ export function FeaturedProjects() {
             </h2>
           </div>
           <Link
-            href="/projects"
+            to="/projects"
             className="group inline-flex items-center gap-2 text-sm font-medium text-foreground"
           >
             View all projects
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            <LuArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
 

@@ -1,15 +1,16 @@
-'use client'
-
-import { useMemo, useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { Search } from 'lucide-react'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { LuSearch } from 'react-icons/lu'
 import { projects, projectCategories } from '@/lib/data'
 import { ProjectCard } from './project-card'
 import { cn } from '@/lib/utils'
 
 export function ProjectsExplorer() {
   const [query, setQuery] = useState('')
-  const [category, setCategory] = useState<string>('All')
+  const [category, setCategory] = useState('All')
+
+  const pillRef = useRef(null)
+  const btnRefs = useRef([])
 
   const filtered = useMemo(() => {
     return projects.filter((p) => {
@@ -24,11 +25,27 @@ export function ProjectsExplorer() {
     })
   }, [query, category])
 
+  useLayoutEffect(() => {
+    const idx = projectCategories.findIndex((c) => c === category)
+    const pill = pillRef.current
+    const el = btnRefs.current[idx]
+    if (!pill || !el) return
+    gsap.to(pill, {
+      autoAlpha: 1,
+      x: el.offsetLeft,
+      y: el.offsetTop,
+      width: el.offsetWidth,
+      height: el.offsetHeight,
+      duration: 0.5,
+      ease: 'power3.out',
+    })
+  }, [category])
+
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24">
       <div className="flex flex-col gap-5">
         <div className="relative max-w-md">
-          <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <LuSearch className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -37,11 +54,17 @@ export function ProjectsExplorer() {
           />
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {projectCategories.map((c) => (
+        <div className="relative flex flex-wrap gap-2">
+          <span
+            ref={pillRef}
+            aria-hidden
+            className="pointer-events-none absolute left-0 top-0 rounded-full bg-primary opacity-0"
+          />
+          {projectCategories.map((c, i) => (
             <button
               key={c}
               type="button"
+              ref={(el) => (btnRefs.current[i] = el)}
               onClick={() => setCategory(c)}
               className={cn(
                 'relative rounded-full px-4 py-2 text-sm transition-colors',
@@ -50,35 +73,17 @@ export function ProjectsExplorer() {
                   : 'border border-border text-muted-foreground hover:text-foreground',
               )}
             >
-              {category === c && (
-                <motion.span
-                  layoutId="cat-pill"
-                  className="absolute inset-0 -z-10 rounded-full bg-primary"
-                  transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                />
-              )}
               {c}
             </button>
           ))}
         </div>
       </div>
 
-      <motion.div layout className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout">
-          {filtered.map((p, i) => (
-            <motion.div
-              key={p.slug}
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-            >
-              <ProjectCard project={p} index={0} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {filtered.map((p, i) => (
+          <ProjectCard key={p.slug} project={p} index={i} />
+        ))}
+      </div>
 
       {filtered.length === 0 && (
         <p className="mt-16 text-center text-muted-foreground">

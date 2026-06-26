@@ -1,7 +1,4 @@
-'use client'
-
-import Image from 'next/image'
-import { Star } from 'lucide-react'
+import { LuStar } from 'react-icons/lu'
 import { Reveal } from './reveal'
 
 const testimonials = [
@@ -35,23 +32,21 @@ const testimonials = [
   },
 ]
 
-function Card({ t }: { t: (typeof testimonials)[number] }) {
+function Card({ t }) {
   return (
     <figure className="glass flex w-[340px] shrink-0 flex-col rounded-3xl border border-border/70 p-6 md:w-[400px]">
       <div className="flex gap-0.5 text-accent">
         {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="size-4 fill-current" />
+          <LuStar key={i} className="size-4 fill-current" />
         ))}
       </div>
       <blockquote className="mt-4 flex-1 text-pretty leading-relaxed text-foreground/90">
         &ldquo;{t.review}&rdquo;
       </blockquote>
       <figcaption className="mt-6 flex items-center gap-3">
-        <Image
+        <img
           src={t.avatar || '/placeholder.svg'}
           alt={t.name}
-          width={44}
-          height={44}
           className="size-11 rounded-full object-cover"
         />
         <div>

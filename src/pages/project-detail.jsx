@@ -1,38 +1,36 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { ArrowLeft, ExternalLink, Check } from 'lucide-react'
+import { useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { LuArrowLeft, LuExternalLink, LuCheck } from 'react-icons/lu'
 import { projects } from '@/lib/data'
 import { Reveal } from '@/components/reveal'
 import { GithubIcon } from '@/components/social-icons'
-import type { Metadata } from 'next'
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}): Promise<Metadata> {
-  const { slug } = await params
+export default function ProjectDetailPage() {
+  const { slug } = useParams()
   const project = projects.find((p) => p.slug === slug)
-  if (!project) return { title: 'Project — Soom Raj' }
-  return {
-    title: `${project.name} — Soom Raj`,
-    description: project.tagline,
+
+  useEffect(() => {
+    document.title = project ? `${project.name} — Soom Raj` : 'Project — Soom Raj'
+  }, [project])
+
+  if (!project) {
+    return (
+      <main className="grid min-h-[70vh] place-items-center px-6 pt-32 text-center">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight">Project not found</h1>
+          <p className="mt-3 text-muted-foreground">
+            The project you&apos;re looking for doesn&apos;t exist.
+          </p>
+          <Link
+            to="/projects"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            <LuArrowLeft className="size-4" /> All projects
+          </Link>
+        </div>
+      </main>
+    )
   }
-}
-
-export default async function ProjectDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
-  const { slug } = await params
-  const project = projects.find((p) => p.slug === slug)
-  if (!project) notFound()
 
   return (
     <main className="pt-32 md:pt-40">
@@ -40,10 +38,10 @@ export default async function ProjectDetailPage({
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <Link
-              href="/projects"
+              to="/projects"
               className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+              <LuArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
               All projects
             </Link>
 
@@ -64,7 +62,7 @@ export default async function ProjectDetailPage({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                Live Demo <ExternalLink className="size-4" />
+                Live Demo <LuExternalLink className="size-4" />
               </a>
               <a
                 href={project.githubUrl}
@@ -79,13 +77,10 @@ export default async function ProjectDetailPage({
 
           <Reveal delay={0.1}>
             <div className="mt-12 overflow-hidden rounded-3xl border border-border bg-secondary">
-              <Image
+              <img
                 src={project.image || '/placeholder.svg'}
                 alt={`${project.name} banner`}
-                width={1200}
-                height={750}
                 className="w-full object-cover"
-                priority
               />
             </div>
           </Reveal>
@@ -137,7 +132,7 @@ export default async function ProjectDetailPage({
                   className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4"
                 >
                   <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground">
-                    <Check className="size-3" />
+                    <LuCheck className="size-3" />
                   </span>
                   <span className="text-sm leading-relaxed">{f}</span>
                 </li>
@@ -189,11 +184,9 @@ export default async function ProjectDetailPage({
                   key={i}
                   className="overflow-hidden rounded-3xl border border-border bg-secondary"
                 >
-                  <Image
+                  <img
                     src={g || '/placeholder.svg'}
                     alt={`${project.name} screenshot ${i + 1}`}
-                    width={800}
-                    height={500}
                     className="w-full object-cover"
                   />
                 </div>

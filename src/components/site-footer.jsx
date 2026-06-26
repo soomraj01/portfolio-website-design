@@ -1,10 +1,8 @@
-'use client'
-
-import Link from 'next/link'
-import { Mail, ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { LuArrowUpRight } from 'react-icons/lu'
 import { Reveal } from './reveal'
 import { MagneticButton } from './magnetic-button'
-import { GithubIcon, LinkedinIcon } from './social-icons'
+import { GithubIcon } from './social-icons'
 
 const nav = [
   { href: '/', label: 'Home' },
@@ -14,7 +12,7 @@ const nav = [
 ]
 
 const socials = [
-  { href: 'https://fiverr.com', label: 'Fiverr', icon: ArrowUpRight },
+  { href: 'https://fiverr.com', label: 'Fiverr', icon: LuArrowUpRight },
   { href: 'https://github.com', label: 'GitHub', icon: GithubIcon },
 ]
 
@@ -46,8 +44,10 @@ export function SiteFooter() {
             discussing new ideas and ambitious products.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            
-            <MagneticButton href="https://www.fiverr.com/users/soomraj02/portfolio?roleIds=" variant="outline">
+            <MagneticButton
+              href="https://www.fiverr.com/users/soomraj02/portfolio?roleIds="
+              variant="outline"
+            >
               View My Work
             </MagneticButton>
           </div>
@@ -55,7 +55,7 @@ export function SiteFooter() {
 
         <div className="mt-20 grid gap-10 border-t border-border pt-12 md:grid-cols-[1.5fr_1fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
+            <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
               <span className="grid size-7 place-items-center rounded-full bg-primary text-[13px] font-bold text-primary-foreground">
                 S
               </span>
@@ -73,7 +73,7 @@ export function SiteFooter() {
               {nav.map((l) => (
                 <li key={l.href}>
                   <Link
-                    href={l.href}
+                    to={l.href}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {l.label}
@@ -90,11 +90,13 @@ export function SiteFooter() {
                 <li key={s.label}>
                   <a
                     href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     <s.icon className="size-4" />
                     {s.label}
-                    <ArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                    <LuArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
                   </a>
                 </li>
               ))}

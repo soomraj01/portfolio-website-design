@@ -1,0 +1,39 @@
+import { useLayoutEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+export function Reveal({ children, className, delay = 0, y = 24, as: Tag = 'div' }) {
+  const ref = useRef(null)
+
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          delay,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom-=80',
+            toggleActions: 'play none none none',
+          },
+        },
+      )
+    }, el)
+    return () => ctx.revert()
+  }, [delay, y])
+
+  return (
+    <Tag ref={ref} className={className}>
+      {children}
+    </Tag>
+  )
+}

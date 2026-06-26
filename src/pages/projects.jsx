@@ -1,14 +1,12 @@
+import { useEffect } from 'react'
 import { Reveal } from '@/components/reveal'
 import { ProjectsExplorer } from '@/components/projects-explorer'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Projects — Soom Raj',
-  description:
-    'A collection of case studies and projects built by Soom Raj across SaaS, MERN, business websites, and WordPress.',
-}
 
 export default function ProjectsPage() {
+  useEffect(() => {
+    document.title = 'Projects — Soom Raj'
+  }, [])
+
   return (
     <main className="pt-36 md:pt-44">
       <section className="px-6 pb-16">

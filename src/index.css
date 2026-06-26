@@ -1,6 +1,4 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -51,6 +49,8 @@
 
 :root {
   color-scheme: dark;
+  --font-geist-sans: 'Geist';
+  --font-serif-display: 'Instrument Serif';
   --background: oklch(1 0 0);
   --foreground: oklch(0.16 0 0);
   --card: oklch(1 0 0);

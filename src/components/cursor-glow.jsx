@@ -1,9 +1,7 @@
-'use client'
-
 import { useEffect, useRef } from 'react'
 
 export function CursorGlow() {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef(null)
 
   useEffect(() => {
     const el = ref.current
@@ -12,7 +10,7 @@ export function CursorGlow() {
     if (window.matchMedia('(pointer: coarse)').matches) return
 
     let raf = 0
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e) => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
         el.style.transform = `translate3d(${e.clientX - 250}px, ${

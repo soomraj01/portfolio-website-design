@@ -1,19 +1,7 @@
-'use client'
-
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
-import Link from 'next/link'
+import { useLayoutEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { gsap } from 'gsap'
 import { cn } from '@/lib/utils'
-import type { ReactNode, MouseEvent } from 'react'
-import { useRef } from 'react'
-
-type MagneticButtonProps = {
-  children: ReactNode
-  href?: string
-  onClick?: () => void
-  variant?: 'primary' | 'outline' | 'ghost'
-  className?: string
-  strength?: number
-}
 
 export function MagneticButton({
   children,
@@ -22,28 +10,31 @@ export function MagneticButton({
   variant = 'primary',
   className,
   strength = 0.4,
-}: MagneticButtonProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const sx = useSpring(x, { stiffness: 200, damping: 15 })
-  const sy = useSpring(y, { stiffness: 200, damping: 15 })
-  const tx = useTransform(sx, (v) => v)
-  const ty = useTransform(sy, (v) => v)
+}) {
+  const ref = useRef(null)
+  const xTo = useRef(null)
+  const yTo = useRef(null)
 
-  const handleMove = (e: MouseEvent<HTMLDivElement>) => {
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    xTo.current = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'elastic.out(1, 0.3)' })
+    yTo.current = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'elastic.out(1, 0.3)' })
+  }, [])
+
+  const handleMove = (e) => {
     const el = ref.current
     if (!el) return
     const rect = el.getBoundingClientRect()
     const relX = e.clientX - (rect.left + rect.width / 2)
     const relY = e.clientY - (rect.top + rect.height / 2)
-    x.set(relX * strength)
-    y.set(relY * strength)
+    xTo.current?.(relX * strength)
+    yTo.current?.(relY * strength)
   }
 
   const reset = () => {
-    x.set(0)
-    y.set(0)
+    xTo.current?.(0)
+    yTo.current?.(0)
   }
 
   const styles = cn(
@@ -56,25 +47,40 @@ export function MagneticButton({
     className,
   )
 
-  const inner = <span className="relative z-10 flex items-center gap-2">{children}</span>
+  const inner = (
+    <span className="relative z-10 flex items-center gap-2">{children}</span>
+  )
+
+  const isExternal = href && /^https?:\/\//.test(href)
 
   return (
-    <motion.div
+    <div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={reset}
-      style={{ x: tx, y: ty }}
       className="inline-block"
     >
       {href ? (
-        <Link href={href} className={styles} onClick={onClick}>
-          {inner}
-        </Link>
+        isExternal ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles}
+            onClick={onClick}
+          >
+            {inner}
+          </a>
+        ) : (
+          <Link to={href} className={styles} onClick={onClick}>
+            {inner}
+          </Link>
+        )
       ) : (
         <button type="button" className={styles} onClick={onClick}>
           {inner}
         </button>
       )}
-    </motion.div>
+    </div>
   )
 }
